@@ -7,7 +7,10 @@
              ok-title="RESERVE"
              @hide="$emit('close')"
              @ok="$emit('book')">
-      <b-img id="image" thumbnail fluid :src="imageHost+bus.image" alt="Image 1"></b-img>
+      <div id="image2" class="min-h-screen bg-grey bg-cover flex items-end block md:fixed w-full md:w-1/2 shadow-md" :style="{ backgroundImage: `url(${imageHost + bus.image})` }">
+        <center><b-img :src="imageHost+bus.image2" id="driver"></b-img>
+        <div class="borderText"><h3>{{ bus.plateNumber }} . {{bus.busType}}</h3></div></center>
+    </div><br/>
       <div class="bv-example-row" id="jumbo1" bg-variant="white" text-variant="black">
         <b-row>
           <div class="col-sm-2">
@@ -178,4 +181,19 @@ export default {
   height: 50%;
   width: 100%;
 }
+#image2{
+   height: 100vh;
+   background-repeat: no-repeat;
+   background-size: cover;
+ }
+
+ #driver{
+   margin-top:10%;
+   border-radius: 50%;
+ }
+  .borderText{
+    background-color:rgba(255, 255, 255, 0.5);
+    width: 25vh;
+    height: 5vh;
+  }
 </style>

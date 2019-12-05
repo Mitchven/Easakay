@@ -29,6 +29,7 @@ let buses = [
         name: "Sunrays",
         image: "/public/sunraysair.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "45211",
         busType: "Aircon",
         company: "Sunrays Bus Lines",
@@ -54,6 +55,7 @@ let buses = [
         name: "Ceres",
         image: "/public/ceresor.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "55778",
         busType: "Ordinary",
         company: "Ceres Liner",
@@ -74,6 +76,7 @@ let buses = [
         name: "Ceres",
         image: "/public/ceresair.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "871",
         busType: "Aircon",
         company: "Ceres Liner",
@@ -94,6 +97,7 @@ let buses = [
         name: "Ceres",
         image: "/public/ceres.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "71289",
         busType: "Ordinary",
         company: "Ceres Liner",
@@ -114,6 +118,7 @@ let buses = [
         name: "Ceres",
         image: "/public/ceresairc.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "78542",
         busType: "Aircon",
         company: "Ceres Liner",
@@ -134,6 +139,7 @@ let buses = [
         name: "Sunrays",
         image: "/public/sunraysairc.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "58976",
         busType: "Aircon",
         company: "Sunrays Bus Lines",
@@ -154,6 +160,7 @@ let buses = [
         name: "Ceres",
         image: "/public/ceresord.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "52345",
         busType: "Ordinary",
         company: "Ceres Liner",
@@ -174,6 +181,7 @@ let buses = [
         name: "Sunrays",
         image: "/public/sunrays.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "80123",
         busType: "Aircon",
         company: "Sunrays Bus Lines",
@@ -194,6 +202,7 @@ let buses = [
         name: "Sunrays",
         image: "/public/sunraysexp.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "78542",
         busType: "Ordinary",
         company: "Sunrays Bus Lines",
@@ -214,6 +223,7 @@ let buses = [
         name: "Sunrays",
         image: "/public/sunraysord.jpg",
         image1: "/public/iconbus.png",
+        image2: "/public/driver.png",
         plateNumber: "18956",
         busType: "Ordinary",
         company: "Sunrays Bus Lines",
@@ -398,7 +408,7 @@ let items = [
 // bus10.save();
 // console.log(bus10);
 
-//for the route details
+// // for the route details
 // let route1 = new Route(items[0]);
 // route1.save();
 // console.log(route1);

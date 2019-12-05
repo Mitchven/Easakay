@@ -79,7 +79,7 @@ export default {
       const vNodesMsg = h("p", { class: ["text-center", "mb-0"] }, [
         h("b-spinner", { props: { type: "grow", small: true } }),
         // " Flashy ",
-        h("strong", {}, "Makabuang Ning Project Dah"),
+        h("strong", {}),
         // ` message #${this.count} `,
         h("b-spinner", { props: { type: "grow", small: true } })
       ]);
