@@ -3,6 +3,7 @@
         <div v-bind:key="bus.id" v-for="bus in buses">
             <BusItem v-bind:bus="bus"/>
             <br/>
+            <!-- <button >Notify</button> -->
         </div>
     </div>
 </template>
@@ -15,6 +16,8 @@ export default {
     components: {
         BusItem
     },
+    
+    
     props:["buses"]
 }
 

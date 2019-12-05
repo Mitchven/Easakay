@@ -52,20 +52,23 @@ export default {
         Modal
     },
     props:["bus"],
-    // mounted(){
-    //     EventBus.$on('ok', clickCount => {
-    //         console.log(`Oh, that's nice. It's gotten ${clickCount} clicks! :)`)
-    //     });
-    // },
+     sockets: {
+        notificationFromServer: function (data) {
+            alert(data.message);
+        }
+    },
+    created() {
+        this.sockets.subscribe('channel.'+localStorage.getItem('username'), (data) => {
+            alert(data.message);
+        });
+    },
     methods:{
-        //  getTicket:function(){
-        //      let bus = this.bus
-        //      EventBus.$emit('displayBusDataOnModal',bus);
-        //  }
+   
         getTicket() {
            this.isModalVisible = true
         },
         book(){
+            this.$socket.emit("notification", {username: localStorage.getItem("username")});
             console.log("BOOK TODO")
         },
         closeModal(){
@@ -73,6 +76,7 @@ export default {
             this.isModalVisible = false
         }
 
-     }
+     },
+     
 }
 </script>

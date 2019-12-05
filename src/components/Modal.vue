@@ -97,6 +97,9 @@ export default {
     this.test = this.showModal
   },
   methods: {
+    //  notify(){
+    //         this.$socket.emit("notification", {username: localStorage.getItem("username")});
+    //     },
     increment() {
       this.num++;
     },
@@ -107,7 +110,11 @@ export default {
         this.num--;
       }
     }
-  }
+  },
+ 
+    // methods: {
+       
+    // },
 };
 </script>
 

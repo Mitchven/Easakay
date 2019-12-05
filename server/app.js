@@ -11,7 +11,9 @@ const config = require('./key')
 const jwt = require('jsonwebtoken')
 const path = require('path')
 const router = require('express').Router();
-// const Post = require('./../models/post');
+
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -514,41 +516,29 @@ app.get('/buses/search', function (req, res, next) {
 
 });
 
-// router.get('/', (req, res, next) => {
-//     Post.find({}, {title: true}).exec((err, posts) => {
-//         res.render('index', {posts});
-//     });
-// });
-
-// router.get('/posts/:id', (req, res, next) => {
-//     Post.findOne({_id: req.params.id}).exec((err, post) => {
-//         res.render('post', {post});
-//     });
-// });
-
-// router.post('/posts/:id', (req, res, next) => {
-//     Post.findByIdAndUpdate(req.params.id, { body: req.body.body }, (err, post) => {
-//             let Pusher = require('pusher');
-//             let pusher = new Pusher({
-//                 appId: process.env.PUSHER_APP_ID,
-//                 key: process.env.PUSHER_APP_KEY,
-//                 secret: process.env.PUSHER_APP_SECRET,
-//                 cluster: process.env.PUSHER_APP_CLUSTER
-//             });
-//             pusher.trigger('notifications', 'post_updated', post, req.headers['x-socket-id']);
-//             res.send('');
-//         });
-// });
-
 module.exports = router;
 app.get('/items', function (req, res, next) {
     res.json({ items: items });
 });
 
-app.listen(port, (err) => {
-    if (err) {
-        console.log(err)
-    } else {
-        console.log('connected ' + port)
-    }
+// app.listen(port, (err) => {
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log('connected ' + port)
+//     }
+// })
+
+io.on("connection", socket => {
+
+    socket.on("notification", data => {
+        console.log("Browser send notification from: " + data.username);
+        //SENDING NOTIFICATION BACK TO BROWSER
+        socket.emit('channel.' + data.username,{ message: "You have successfully reserved a seat ."});
+    });
+
+});
+
+http.listen(port, ()=> {
+    console.log('Listening on *: '+port)
 })
