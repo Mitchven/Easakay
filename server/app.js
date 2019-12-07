@@ -12,8 +12,8 @@ const jwt = require('jsonwebtoken')
 const path = require('path')
 const router = require('express').Router();
 
-const http = require('http').Server(app)
-const io = require('socket.io')(http)
+// const http = require('http').Server(app)
+// const io = require('socket.io')(http)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,6 +48,7 @@ let buses = [
             senior: "Senior Citizen",
             student: "Student"
         },
+        sittingCapacity:56,
         availableSeats: 56
     },
     {
@@ -69,6 +70,7 @@ let buses = [
             to: "Santander Liloan Port",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:50,
         availableSeats: 50
     },
     {
@@ -90,6 +92,7 @@ let buses = [
             to: "Argao",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:45,
         availableSeats: 45
     },
     {
@@ -111,6 +114,7 @@ let buses = [
             to: "Bato",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:55,
         availableSeats: 55
     },
     {
@@ -132,6 +136,7 @@ let buses = [
             to: "Argao",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:40,
         availableSeats: 40
     },
     {
@@ -153,6 +158,7 @@ let buses = [
             to: "Santander Liloan Port",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:56,
         availableSeats: 56
     },
     {
@@ -174,6 +180,7 @@ let buses = [
             to: "Bato",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:45,
         availableSeats: 45
     },
     {
@@ -195,6 +202,7 @@ let buses = [
             to: "Alcoy",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:56,
         availableSeats: 55
     },
     {
@@ -216,6 +224,7 @@ let buses = [
             to: "Santander Liloan Port",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
+        sittingCapacity:40,
         availableSeats: 39
     },
     {
@@ -237,7 +246,7 @@ let buses = [
             to: "Samboan",
             address: "Natalio B. Bacalso Avenue, Cebu City, 6000 Cebu"
         },
-
+        sittingCapacity:45,
         availableSeats: 45
     }
 ]
@@ -439,9 +448,9 @@ let items = [
 // let route10 = new Route(items[9]);
 // route10.save();
 // console.log(route10);
-// }    
+// // }    
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true })
     .then(() => {
         console.log('connedted to DB')
     })
@@ -494,7 +503,12 @@ app.post('/user/login', (req, res) => {
 });
 
 app.get('/buses', function (req, res, next) {
-    res.json({ buses: buses });
+    Bus.find({}).then(resp=>{
+        res.json({ buses: resp });
+    }).catch(err=>{
+        res.send(err)
+    })
+    
 });
 
 app.get('/buses/search', function (req, res, next) {
@@ -526,11 +540,33 @@ app.get('/buses/search', function (req, res, next) {
 
 });
 
-module.exports = router;
+//module.exports = router;
 app.get('/items', function (req, res, next) {
     res.json({ items: items });
 });
 
+app.post('/notify', (req, res) => {
+    var username = req.body.username
+    var serder = req.app.get('socketio');
+    var busid = req.body.id
+    var availseats = req.body.availseats
+    console.log("busid: ", busid)
+    Bus.findOne({ bus_id: busid }, { _id: 0, availableSeats: 1 }).then(resp => {
+        console.log(resp)
+        let currentSeat = resp.availableSeats - availseats
+        Bus.findOneAndUpdate({ bus_id: busid }, { availableSeats: currentSeat }).then(updateRes => {
+            serder.emit('channel.' + username, { message: "You have successfully reserved a seat ", bus: req.body.bus});
+            res.send("done")
+        })
+    })
+    // Bus.findByIdAndUpdate(busid, { "$inc": { "availableSeats": -availseats } }).then(resp => {
+    //     serder.emit('channel.' + username, { message: "You have successfully reserved a seat ." + req.body.bus });
+    //     res.send("done")
+    // }).catch(err => {
+    //     res.send(err)
+    // })
+
+})
 // app.listen(port, (err) => {
 //     if (err) {
 //         console.log(err)
@@ -538,17 +574,24 @@ app.get('/items', function (req, res, next) {
 //         console.log('connected ' + port)
 //     }
 // })
-
-io.on("connection", socket => {
-
-    socket.on("notification", data => {
-        console.log("Browser send notification from: " + data.username);
-        //SENDING NOTIFICATION BACK TO BROWSER
-        socket.emit('channel.' + data.username,{ message: "You have successfully reserved a seat ."});
-    });
-
+const server = app.listen(port, function () {
+    console.log('Api server listening on port:', port);
+    //connect
 });
 
-http.listen(port, ()=> {
-    console.log('Listening on *: '+port)
-})
+const io = require("socket.io")(server);
+app.set('socketio', io);
+// io.on("connection", socket => {
+
+//     socket.on("notification", data => {
+//         console.log("Browser send notification from: " + data.username);
+//         //SENDING NOTIFICATION BACK TO BROWSER
+//         socket.broadcast.emit('channel.' + data.username,{ message: "You have successfully reserved a seat ."});
+//     });
+
+// });
+
+// http.listen(port, ()=> {
+//     console.log('Listening on *: '+port)
+// })
+

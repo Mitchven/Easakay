@@ -1,82 +1,102 @@
 <template>
-    <div class="bv-example-row" id="jumbo1" bg-variant="white" text-variant="black">
-        <b-row>
-            <div class="col-sm-2">
-            <br />
-            <b-img id="image" thumbnail fluid :src="imageHost+bus.image" alt="Image 1"></b-img>
+  <div class="bv-example-row" id="jumbo1" bg-variant="white" text-variant="black">
+    <b-row>
+      <div class="col-sm-2">
+        <br>
+        <b-img id="image" thumbnail fluid :src="imageHost+bus.image" alt="Image 1"></b-img>
 
-            <p>{{ bus.name }} {{ bus.plateNumber }} . {{ bus.busType }}</p>
-            </div>
-            <div class="col-sm-3">
-            <h5 class="text-center">{{ bus.company }}</h5>
-            <hr />
-            <p>
-                Departure Time: {{ bus.departureTime }}
-                <br />Arrival Time: {{ bus.arrivalTime }}
-                <br />Date: {{ bus.departureDate }}
-            </p>
-            </div>
-            <div class="col-sm-5">
-            <h5 class="text-center">{{ bus.busRoute.from }} - {{ bus.busRoute.to }}</h5>
-            <hr />
-            </div>
-            <div class="col-sm-2">
-            <h5 class="text-center">{{ bus.availableSeats }} Seats</h5>
-            <hr />
-            <b-form id="b-getTicket">
-                <b-button v-b-modal.modal-xl variant="outline-success" @click="getTicket">Get ticket</b-button>
-            </b-form>
+        <p>{{ bus.name }} {{ bus.plateNumber }} . {{ bus.busType }}</p>
+      </div>
+      <div class="col-sm-2">
+        <h5 class="text-center">{{ bus.company }}</h5>
+        <hr>
+        <p>
+          Departure Time: {{ bus.departureTime }}
+          <br>
+          Arrival Time: {{ bus.arrivalTime }}
+          <br>
+          Date: {{ bus.departureDate }}
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <h5 class="text-center">{{ bus.busRoute.from }} - {{ bus.busRoute.to }}</h5>
+        <hr>
+      </div>
+      <div class="col-sm-3">
+        <h5 class="text-center">{{ bus.sittingCapacity }} Sitting Capacity</h5>
+        <hr>
+      </div>
+        <div class="col-sm-2">
+        <h5 class="text-center">{{ bus.availableSeats}} Available Seats</h5>
+        <hr>
+        <b-form id="b-getTicket">
+          <b-button v-b-modal.modal-xl variant="outline-success" @click="getTicket">Get ticket</b-button>
+        </b-form>
 
-            <Modal v-bind:showModal="isModalVisible" 
-                   v-bind:bus="bus" 
-                   v-on:book='book' 
-                   v-on:close='closeModal' />
-            </div>
-        </b-row>
-    </div>
+        <Modal
+          v-bind:showModal="isModalVisible"
+          v-bind:bus="bus"
+          v-on:book="book"
+          v-on:close="closeModal"
+        />
+      </div>
+    </b-row>
+  </div>
 </template>
 
 <script>
 // import { EventBus } from '../main';
-import  Modal  from './Modal.vue';
-
+import Modal from "./Modal.vue";
+// import io from "socket.io-client";
+// var socket = io.connect("http://localhost:8082");
 export default {
-    name:"BusItem",
-    data(){
-        return {
-            isModalVisible: false,
-            imageHost: "http://localhost:8082"
-        }
+  name: "BusItem",
+  data() {
+    return {
+      isModalVisible: false,
+      imageHost: "http://localhost:8082"
+    };
+  },
+  components: {
+    Modal
+  },
+  props: ["bus"],
+  //  sockets: {
+  //     notificationFromServer: function (data) {
+  //         alert(data.message);
+  //     }
+  // },
+  created() {
+    //this.onNotify();
+    // this.sockets.subscribe(
+    //   "channel." + localStorage.getItem("username"),
+    //   data => {
+    //     alert(data.message);
+    //   }
+    // );
+  },
+  methods: {
+    getTicket() {
+      this.isModalVisible = true;
     },
-    components:{
-        Modal
+    book() {
+      this.$socket.emit("notification", {
+        username: localStorage.getItem("username")
+      });
+      console.log("BOOK TODO");
     },
-    props:["bus"],
-     sockets: {
-        notificationFromServer: function (data) {
-            alert(data.message);
-        }
-    },
-    created() {
-        this.sockets.subscribe('channel.'+localStorage.getItem('username'), (data) => {
-            alert(data.message);
-        });
-    },
-    methods:{
-   
-        getTicket() {
-           this.isModalVisible = true
-        },
-        book(){
-            this.$socket.emit("notification", {username: localStorage.getItem("username")});
-            console.log("BOOK TODO")
-        },
-        closeModal(){
-            console.log("CLOSE MODAL")
-            this.isModalVisible = false
-        }
-
-     },
-     
-}
+    // passdata(data) {
+    //   console.log("notify: ", data);
+    // },
+    // onNotify() {
+    //   socket.on("channel."+localStorage.getItem("username"), data => {
+    //     this.passdata(data);
+    //   });
+    // },
+    closeModal() {
+      console.log("CLOSE MODAL");
+      this.isModalVisible = false;
+    }
+  }
+};
 </script>

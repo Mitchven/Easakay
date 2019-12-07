@@ -19,6 +19,10 @@ var BusSchema = new Schema({
         type: String,
         required: true
     },
+    image2:{
+        type: String,
+        required: true
+    },
     plateNumber:{
         type: String,
         required: true
@@ -64,6 +68,10 @@ var BusSchema = new Schema({
             type: String,
             required: true
         },
+    },
+    sittingCapacity:{
+        type:Number,
+        required: true
     },
     availableSeats:{
         type: Number,
