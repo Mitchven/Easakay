@@ -35,7 +35,7 @@
           <b-img id="image1" thumbnail fluid :src="imageHost+bus.image1" alt="Image 1"></b-img>
           <h5 style="text-align:center">{{bus.arrivalTime}}</h5>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
           <br>
           <br>
           <br>
@@ -50,9 +50,9 @@
             To: {{bus.busRoute.to}}
           </p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <h5 class="text-center" v-if="start >= 0">{{ start }} Available Seats</h5>
-          <h5 class="text-center" v-else>No Availble Seats</h5>
+          <h5 class="text-center" v-else>No Available Seats</h5>
           <hr>
         </div>
       </b-row>

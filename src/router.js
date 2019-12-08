@@ -9,6 +9,7 @@ import Register from './modules/Register.vue'
 import HelloWorld from './components/HelloWorld.vue'
 import RouterDetails from './modules/RouterDetails.vue'
 import GoogleMap from './modules/GoogleMap.vue' 
+import PersonalInfo from './modules/PersonalInfo.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ let router = new Router({
       component: Login
     }
     ,
+    {
+      path: '/personalInfo',
+      name: 'personaInfo',
+      component: PersonalInfo
+    },
     {
         path: '/helloworld',
         name: 'helloworld',

@@ -540,6 +540,35 @@ app.get('/buses/search', function (req, res, next) {
 
 });
 
+app.post('/user/profile', (req, res) => {
+    console.log(req.body)
+    var decoded = jwt.decode(req.body.data.token)
+    var id = decoded._id
+    User.findById(id, (err, user) => {
+        user.username = req.body.data.username
+        user.password = req.body.data.password
+        user.email = req.body.data.email
+        user.image = req.body.data.image
+        console.log(user);
+        user.save(err => {
+            if (err)
+                console.log(err)
+            res.send(user)
+        })
+    })
+
+})
+
+app.get('/user/retrieve/:id',(req,res)=>{
+    console.log(req)
+    User.findById(req.params.id, (err, user) => {
+        res.send(user)
+        console.log(user);
+        
+    })
+
+})
+
 //module.exports = router;
 app.get('/items', function (req, res, next) {
     res.json({ items: items });
