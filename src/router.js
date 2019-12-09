@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store.js'
-
+import RouterDetails from './modules/RouterDetails.vue'
 import Dashboard from './modules/Dashboard.vue'
 import LandingPage from './modules/LandingPage.vue'
 import Login from './modules/Login.vue'
 import Register from './modules/Register.vue'
 import HelloWorld from './components/HelloWorld.vue'
-import RouterDetails from './modules/RouterDetails.vue'
-import GoogleMap from './modules/GoogleMap.vue' 
-import PersonalInfo from './modules/PersonalInfo.vue'
+import GoogleMap from './modules/GoogleMap.vue'
+import Edit from './modules/PersonalInfo.vue'
 
 Vue.use(Router)
 
@@ -36,11 +35,6 @@ let router = new Router({
     }
     ,
     {
-      path: '/personalInfo',
-      name: 'personaInfo',
-      component: PersonalInfo
-    },
-    {
         path: '/helloworld',
         name: 'helloworld',
         component: HelloWorld
@@ -57,10 +51,14 @@ let router = new Router({
       beforeEnter: auth
     },
     {
+      path: '/personalInfo',
+      name: 'personalInfo',
+      component: Edit
+    },
+    {
       path: '/googlemap',
       name: 'googlemap',
-      component: GoogleMap,
-      beforeEnter: auth
+      component: GoogleMap
     },
     {
       path: '/routerdetails',

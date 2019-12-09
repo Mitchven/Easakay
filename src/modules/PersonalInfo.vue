@@ -3,7 +3,7 @@
     <div>
       <center>
         <h1>Profile</h1>
-        <hr />
+        <hr>
       </center>
     </div>
     <div class="mt-4">
@@ -26,11 +26,11 @@
                 <input
                   type="file"
                   id="file"
-                  @change="encodeToBase64"
+                  @change="handleChange"
                   ref="file"
                   accept="file/*"
                   style="display:none"
-                />
+                >
                 <!-- <center>
                   <br />
                    <h1>Hi {{Uname}}</h1>
@@ -73,14 +73,14 @@
                 @click="save"
               >Save changes</button>
             </center>
-            <br />
+            <br>
           </b-col>
         </b-row>
       </b-container>
     </div>
 
-    <br />
-    <br />
+    <br>
+    <br>
   </div>
 </template>
 
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     save: function(e) {
-      e.preventDefault();
+      e.preventDefault();      
       let data = {
         username: this.username,
         password: this.password,
@@ -114,7 +114,6 @@ export default {
       sessionStorage.setItem("Username", this.username),
         sessionStorage.setItem("Email", this.email),
         sessionStorage.setItem("Password", this.password),
-        console.log(data);
       axios
         .post("http://localhost:8082/user/profile", { data: data })
         .then(res => {
@@ -123,6 +122,7 @@ export default {
             (this.password = ""),
             (this.imgUrl = "");
           console.log(res);
+
           this.imgUrl = res.data.image;
         })
         .catch(err => {
@@ -137,33 +137,51 @@ export default {
       console.log(this.file);
       this.imgUrl = URL.createObjectURL(this.file);
     },
-    encodeToBase64(event) {
-      event.preventDefault();
-      const file2 = event.target.files[0];
-      const canvas = document.createElement("canvas");
-      canvas.getContext("2d");
-      const reader = new FileReader();
-      reader.onload = event => {
-        const img = new Image();
-        img.onload = () => {
-          this.image = canvas
-            .toDataURL("image/png")
-            .replace(/^data:image\/(png|jpg);base64,/, "");
-          // console.log("RESULT/png", this.image);
+    handleChange() {
+      var imageUrl = this.$refs.file.files[0];
+      this.encodeToBase64(imageUrl).then(res => {
+        this.imgUrl = res;
+      });
+    },
+
+    encodeToBase64: async file => {
+      let result_base64 = await new Promise(resolve => {
+        let fileReader = new FileReader();
+        fileReader.onload = e => {
+          console.log(e);
+          resolve(fileReader.result);
         };
-        img.src = event.target.result;
-        // console.log("RESULT!", img.src);
-        var a = document.getElementById("file").value;
-        var b = a.split("\\");
-        this.imageDetail = { filename: b[2], image: img.src };
-        console.log(this.imageDetail);
-        this.imgUrl = img.src;
-      };
-      reader.readAsDataURL(file2);
-      var temp = document.getElementById("file").value.split("\\");
-      this.file = temp[2];
-      this.uploaded = true;
+        fileReader.readAsDataURL(file);
+      });
+      return result_base64;
     }
+    // encodeToBase64(event) {
+    //   event.preventDefault();
+    //   const file2 = event.target.files[0];
+    //   const canvas = document.createElement("canvas");
+    //   canvas.getContext("2d");
+    //   const reader = new FileReader();
+    //   reader.onload = event => {
+    //     const img = new Image();
+    //     img.onload = () => {
+    //       this.image = canvas
+    //         .toDataURL("image/png")
+    //         .replace(/^data:image\/(png|jpg);base64,/, "");
+    //       // console.log("RESULT/png", this.image);
+    //     };
+    //     img.src = event.target.result;
+    //     // console.log("RESULT!", img.src);
+    //     var a = document.getElementById("file").value;
+    //     var b = a.split("\\");
+    //     this.imageDetail = { filename: b[2], image: img.src };
+    //     console.log(this.imageDetail);
+    //     this.imgUrl = img.src;
+    //   };
+    //   reader.readAsDataURL(file2);
+    //   var temp = document.getElementById("file").value.split("\\");
+    //   this.file = temp[2];
+    //   this.uploaded = true;
+    // }
   },
   mounted() {
     var decoded = jwt.decode(localStorage.getItem("jwt"));

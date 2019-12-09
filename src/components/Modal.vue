@@ -74,10 +74,11 @@
           </b-form-select>
         </b-col>
         <div class="col-sm-3">
+          
           <p>Number of Passengers</p>
           <b-input-group>
             <b-input-group-prepend>
-              <b-btn variant="outline-success" @click="decrement()">-</b-btn>
+            <b-btn variant="outline-success" @click="decrement()">-</b-btn>
             </b-input-group-prepend>
             <b-form-input type="number" min="0.00" v-model="num"></b-form-input>
             <b-input-group-append>
@@ -92,7 +93,9 @@
           <router-link to="/RouterDetails">{{ bus.rlink }}</router-link>
         </div>
       </b-row>
+      <br>
     </div>
+    
   </b-modal>
   <!-- </transition> -->
 </template>

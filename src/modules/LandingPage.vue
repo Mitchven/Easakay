@@ -1,13 +1,13 @@
 <template>
-  <b-card id="LargeContainer">
+  <b-card>
     <div class="bv-example-row" id="container1" bg-variant="white" text-variant="black">
       <b-row>
         <b-col>
           <div class="col-lg-12">
             <p id="p" class="text-center">
               "Value everyone's comfort
-              <br>in the world
-              <br>of travel"
+              <br />in the world
+              <br />of travel"
             </p>
           </div>
         </b-col>
@@ -24,19 +24,21 @@
               <b-carousel-slide
                 img-src="https://www.panaynews.net/wp-content/uploads/2019/07/cropped-Yanson-Group-of-Bus-Companies-Ceres-Bus-3-696x391.jpg"
               ></b-carousel-slide>
-              <b-carousel-slide img-src></b-carousel-slide>
+              <b-carousel-slide
+                img-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWOOa9QweSQg3MTpAGkk13D7_OSQjecGhP180AnmRtxPEey9vB&s"
+              ></b-carousel-slide>
               <b-carousel-slide img-src="https://www.travelingcebu.com/images/csbt2.jpg"></b-carousel-slide>
             </b-carousel>
           </div>
         </b-col>
       </b-row>
     </div>
-    <br>
-    <br>
+    <br />
+    <br />
     <center>
-      <b-button v-b-modal.modal-xl variant="outline-success" >Learn More</b-button>
+       <b-button v-b-modal.modal-xl variant="outline-success">Learn More</b-button>
     </center>
-    <b-modal id="modal-xl" size="xl" title="Easakay" ok-only ok-variant="outline-success" ok-title="Ok">
+    <b-modal id="modal-xl" size="xl" title="Easakay" ok-only ok-variant="outline-success">
       <div class="d-block text-center">
         <div class="container">
           <div class ="card">
@@ -54,62 +56,64 @@
       </div>
       </div>
       </div>
-      <br>
-      <br>
-      <center><p id="us">Who we are</p></center>
-      <br>
+     
+     &nbsp; <center><p id="us">DEVELOPERS</p></center>
+      
       <div class="row">
         <div class="col-sm-3">
-            <div class="card">
-            <b-img id="imgMember" :src="require('assets/nanit.jpg')" fluid alt="Fluid image"></b-img>
-              <p id="pMember">Nanit Katipunan</p>
-            </div>
+            <center> <div class="card">&nbsp;
+           <b-img id="imgMember" :src="require('assets/nanit.jpg')" fluid alt="Fluid image"></b-img>
+              <b><p id="pMember">Nanit Katipunan</p></b>
+              <p id="pMember">Project Manager</p>
+              <p id="pMember">nanit.katipunan@student.passerellesnumeriques.org</p>
+            </div></center>
           </div>
       <br>
         <div class="col-sm-3">
-            <div class="card">
+            <center><div class="card">&nbsp;
             <b-img id="imgMember" :src="require('assets/tanya.png')" fluid alt="Fluid image"></b-img>
-              <p id="pMember">Cristina Bustamante</p>
-            </div>
+              <b><p id="pMember">Cristina Bustamante</p></b>
+              <p id="pMember">Front End Developer</p>
+              <p id="pMember">cristina.bustamante@student.passerellesnumeriques.org</p>
+            </div></center>
         </div>
       <br>
         <div class="col-sm-3">
-            <div class="card">
+            <center><div class="card">&nbsp;
             <b-img id="imgMember" :src="require('assets/mars.jpg')" fluid alt="Fluid image"></b-img>
-              <p id="pMember">Ma.Lyn Gamboa</p>
-            </div>
+              <b><p id="pMember">Ma.Lyn Gamboa</p></b>
+              <p id="pMember">Back End Developer</p>
+              <p id="pMember">malyn.gamboa@student.passerellesnumeriques.org</p>
+            </div></center>
         </div>
       <br>
         <div class="col-sm-3">
-            <div class="card">
+            <center><div class="card">&nbsp;
               <b-img id="imgMember" :src="require('assets/yubert.png')" fluid alt="Fluid image"></b-img>
-              <p id="pMember">Yubert Mariscal</p>
-            </div>
+              <b><p id="pMember">Yubert Mariscal</p></b>
+              <p id="pMember">Front End Developer</p>
+              <p id="pMember">yubert.mariscal@student.passerellesnumeriques.org</p>
+            </div></center>
           </div>
         </div>
     </b-modal>
     
   </b-card>
-  
 </template>
-
 <script>
   export default {
   }
 </script>
 
 <style>
-
 .container {
   border: 50% black;
-
 }
 #container1 {
   background-size: cover;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAA1BMVEUksk7fqXNLAAAASElEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC3AcUIAAFkqh/QAAAAAElFTkSuQmCC");
   border: solid green 2px;
   margin-right: 1px;
-
   padding-top: 1%;
   width: 100%;
   padding-bottom: 1%;
