@@ -42,7 +42,6 @@
               title="Notification"
             ></i>
             <span v-if="storeArray.length != 0" class="red">{{storeArray.length}}</span>
-            <!-- <i class="fas fa-bell fa-lg"  v-b-popover.hover.top="" @click="notification" title="Notification"></i><span v-if="store !=''" class="red">{{storeArray.length}}</span> -->
           </b-nav-item>
 
           <b-nav-item-dropdown right>
@@ -80,9 +79,6 @@
 <script>
 import io from "socket.io-client";
 var socket = io.connect("http://localhost:8082");
-// var today = new Date();
-// var time =
-//   today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 export default {
   data() {
     return {
@@ -111,63 +107,18 @@ export default {
     },
     passdata(data) {
       this.storeArray.push(data);
-      // this.store = "";
-      // this.storeArray.forEach(each => {
-      //   this.store += each;
-      // });
-      // //this.store = data.message
     },
     onNotify() {
       socket.on("channel." + localStorage.getItem("username"), data => {
         this.passdata(data);
       });
     },
-    // notification() {
-    //   // Use a shorter name for this.$createElement
-    //   const h = this.$createElement;
-    //   // Increment the toast count
-    //   // this.count++;
-    //   // Create the message
-    //   const vNodesMsg = h("p", { class: ["text-center", "mb-0"] }, [
-    //     h("b-spinner", { props: { type: "grow", small: true } }),
-    //     // " Flashy ",
-    //     h("strong", this.store),
-    //     // ` message #${this.count} `,
-    //     h("b-spinner", { props: { type: "grow", small: true } })
-    //   ]);
-    //   // Create the title
-    //   const vNodesTitle = h(
-    //     "div",
-    //     { class: ["d-flex", "flex-grow-1", "align-items-baseline", "mr-2"] },
-    //     [
-    //       h("strong", { class: "mr-2" }, "Easakay"),
-    //       h("small", { class: "ml-auto text-italics" }, time)
-    //     ]
-    //   );
-    //   // Pass the VNodes as an array for message and title
-    //   this.$bvToast.toast([vNodesMsg], {
-    //     title: [vNodesTitle],
-    //     solid: true,
-    //     variant: "info"
-    //   });
-    // }
-    //   ,created(){
-    //   axios({url: 'http://localhost:8082/posts', method: 'GET' })
-    // 			.then(resp => {
-    //           // console.log(resp.data.buses);
-    //           this.pusher = resp.data.pusher;
-    // 			})
-    // 			.catch(err => {
-    // 				console.log(err)
-    // 			})
-    // }
   }
 };
 </script>
 
 
 <style scoped >
-/* // @import "assets/style.scss"; */
 #no {
   color: white;
   margin-top: -2%;
@@ -200,10 +151,6 @@ export default {
   margin-right: 1000px;
   color: white;
 }
-/* #text {
-  color: white;
-  font-size: 15px;
-} */
 .card-header tabs {
   padding-bottom: 50%;
   padding-top: 50%;
@@ -216,14 +163,4 @@ export default {
 .red {
   color:red;
 }
-/* .myclass {
-  position: absolute !important;
-  top: -10px !important;
-  left: -10px !important;
-  background-color: yellow !important;
-}
-
-.myclass {
-  background-color: red !important;
-} */
 </style>s

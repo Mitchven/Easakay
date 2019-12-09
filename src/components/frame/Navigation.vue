@@ -13,12 +13,12 @@
             id="text"
             type="button"
             class="ml-auto"
-          ><b-button variant="success">Sign In</b-button></b-nav>
+          ><b-button variant="success">Login</b-button></b-nav>
           <b-nav
             @click="redirect('/Register')"
             v-if="!this.$store.getters.isLoggedIn"
             type="button"
-          ><b-button variant="success"> Sign Up </b-button></b-nav>
+          ><b-button variant="success"> Register </b-button></b-nav>
     </b-collapse>
       <!-- Right aligned nav items -->
      </b-navbar>

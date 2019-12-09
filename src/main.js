@@ -11,12 +11,9 @@ import * as io from 'socket.io-client'
 import VueSocketIO from 'vue-socket.io'
 
 import Vuelidate from "vuelidate"
-import VueSidebarMenu from 'vue-sidebar-menu'
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import { CardPlugin } from 'bootstrap-vue'
 Vue.use(CardPlugin)
 Vue.use(Vuelidate)
-
 
 Vue.use(new VueSocketIO({
   debug: true,
@@ -30,8 +27,6 @@ Vue.use(new VueSocketIO({
 );
 
 Vue.config.productionTip = false
-
-Vue.use(VueSidebarMenu)
 Vue.use(BootstrapVue)
 
 export const EventBus = new Vue()

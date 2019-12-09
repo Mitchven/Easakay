@@ -61,19 +61,9 @@ export default {
     Modal
   },
   props: ["bus"],
-  //  sockets: {
-  //     notificationFromServer: function (data) {
-  //         alert(data.message);
-  //     }
-  // },
+
   created() {
-    //this.onNotify();
-    // this.sockets.subscribe(
-    //   "channel." + localStorage.getItem("username"),
-    //   data => {
-    //     alert(data.message);
-    //   }
-    // );
+    
   },
   methods: {
     getTicket() {
@@ -85,14 +75,7 @@ export default {
       });
       console.log("BOOK TODO");
     },
-    // passdata(data) {
-    //   console.log("notify: ", data);
-    // },
-    // onNotify() {
-    //   socket.on("channel."+localStorage.getItem("username"), data => {
-    //     this.passdata(data);
-    //   });
-    // },
+    
     closeModal() {
       console.log("CLOSE MODAL");
       this.isModalVisible = false;
